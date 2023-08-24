@@ -1,8 +1,8 @@
 # Salesforce Timesheet Application
 
-Welcome to the repository for my innovative Salesforce project that powers the Timesheet application, developed during my Salesforce Internship at "Intermino - OdooTM and SalesforceTM partner." Explore the intricacies of my Timesheet Application.
+Welcome to the repository for my innovative Salesforce project that powers the Timesheet application, developed during my Salesforce Internship at "Intermino - OdooTM and SalesforceTM partner" (May 2023 - June 2023). Explore the intricacies of my Timesheet Application.
 
-<img src="https://github.com/rijadhmz/Salesforce-Timesheet-App/blob/main/images/salesforce.png?raw=true" width="100" height="100">
+<img src="https://github.com/rijadhmz/Salesforce-Timesheet-App/blob/main/images/salesforce.png?raw=true" width="150" height="100">
 
 ## Data Model
 
