@@ -2,7 +2,7 @@
 
 Welcome to the repository for my innovative Salesforce project that powers the Timesheet application, developed during my Salesforce Internship at "Intermino - OdooTM and SalesforceTM partner." Explore the intricacies of my Timesheet Application.
 
-![Salesforce-Logo](https://github.com/rijadhmz/Salesforce-Timesheet-App/blob/main/images/salesforce.png?raw=true)
+<img src="[https://your-image-url.type](https://github.com/rijadhmz/Salesforce-Timesheet-App/blob/main/images/salesforce.png?raw=true)" width="100" height="100">
 
 ## Data Model
 
@@ -81,7 +81,7 @@ The Visualforce page incorporates a Bootstrap CSS file (bootstrap.min.css) to en
 
 ### Navigation Bar
 
-The navigation bar features the company logo <img> and a personalized greeting <h1>. The greeting message dynamically displays the employee's name using merge syntax {!employeeName}.
+The navigation bar features the company logo `<img>` and a personalized greeting `<h1>`. The greeting message dynamically displays the employee's name using merge syntax `{!employeeName}`.
 
 ### Form Section
 
