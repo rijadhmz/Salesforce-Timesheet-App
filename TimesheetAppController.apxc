@@ -1,0 +1,104 @@
+public class TimeSheetAppController {
+    public Timesheet__c timesheetRecord { get; set; }
+    public Boolean hasFilledTimesheet { get; set; }
+    public Boolean hasErrors { get; set; }
+    public Boolean hasInfo { get; set; }
+    public List<String> errorMessages { get; set; }
+    public List<String> infoMessages { get; set; }
+    public String token { get; set; }
+    public String employeeName { get; set; }
+
+    public TimeSheetAppController() {
+        timesheetRecord = new Timesheet__c();
+        errorMessages = new List<String>();
+        infoMessages = new List<String>();
+        token = ApexPages.currentPage().getParameters().get('token'); // Get the token value from the URL
+        employeeName = getEmployeeNameFromToken(token); // Fetch the employee's name based on the token
+    }
+
+    // Method to check if the user has already filled in the timesheet for the week
+    public Boolean hasFilledTimesheet() {
+        if (timesheetRecord.TimesheetWeekID__c == null || timesheetRecord.EmployeeID__c == null) {
+            return false; // Invalid data
+        }
+
+        // Query to check if the timesheet already exists for the week and employee
+        List<Timesheet__c> existingTimesheets = [
+            SELECT Id
+            FROM Timesheet__c
+            WHERE EmployeeID__c = :timesheetRecord.EmployeeID__c
+                AND TimesheetWeekID__c = :timesheetRecord.TimesheetWeekID__c
+            LIMIT 1
+        ];
+
+        return !existingTimesheets.isEmpty();
+    }
+
+    public void saveTimesheetRecord() {
+    // Clear previous messages
+    errorMessages.clear();
+    infoMessages.clear();
+    hasErrors = false;
+    hasInfo = false;
+
+    try {
+        // Set the Employee ID based on the token
+        String employeeId = getEmployeeIdFromToken(token);
+            if (employeeId != null) {
+                timesheetRecord.EmployeeID__c = employeeId;
+    
+                if (hasFilledTimesheet()) {
+                    errorMessages.add('Timesheet already filled for the week.');
+                    hasErrors = true;
+                    return;
+                }
+    
+                insert timesheetRecord;
+    
+                infoMessages.add('Timesheet record saved.');
+                hasInfo = true;
+                timesheetRecord = new Timesheet__c();
+            } else {
+                errorMessages.add('Invalid token.');
+                hasErrors = true;
+            }
+        } catch (Exception ex) {
+            errorMessages.add('Error.');
+            hasErrors = true;
+        }
+    }
+
+    // Get Employee ID from the token
+    private String getEmployeeIdFromToken(String token) {
+        Employee__c employee = [
+            SELECT Id
+            FROM Employee__c
+            WHERE Token__c = :token
+            LIMIT 1
+        ];
+
+        if (employee != null) {
+            return employee.Id;
+        }
+
+        // no token
+        return null;
+    }
+
+    // Get Employee Name from the token
+    private String getEmployeeNameFromToken(String token) {
+        Employee__c employee = [
+            SELECT Name
+            FROM Employee__c
+            WHERE Token__c = :token
+            LIMIT 1
+        ];
+
+        if (employee != null) {
+            return employee.Name;
+        }
+
+        // bad token
+        return 'Unknown Employee';
+    }
+}
