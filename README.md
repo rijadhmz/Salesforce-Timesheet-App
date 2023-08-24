@@ -81,7 +81,7 @@ The Visualforce page incorporates a Bootstrap CSS file (bootstrap.min.css) to en
 
 ### Navigation Bar
 
-The navigation bar features the company logo (<img>) and a personalized greeting (<h1>). The greeting message dynamically displays the employee's name using merge syntax {!employeeName}.
+The navigation bar features the company logo <img> and a personalized greeting <h1>. The greeting message dynamically displays the employee's name using merge syntax {!employeeName}.
 
 ### Form Section
 
