@@ -1,0 +1,72 @@
+<apex:page controller="TimeSheetAppController">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+        <style>
+        	
+            body {
+            	background-color: #ffffff;
+            }
+            
+            .navbar {
+            	background-color: #000000 !Important;
+            }
+        
+        </style>
+    </head>
+    
+    <section>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/220px-Salesforce.com_logo.svg.png" alt="Logo" class="navbar-brand" width="100px" />
+                <h1 class="navbar-brand">Hello, <span class='text-info'>{!employeeName}</span></h1>
+            </div>
+        </nav>
+    </section>
+    
+    <apex:form >
+        <div class='container mt-5 mb-5'>
+            <div class="mb-5 h4">
+                <label for="week" class='mb-3'>Week</label>
+                <apex:inputField value="{!timesheetRecord.TimesheetWeekID__c}" id="week" styleClass="form-control" />
+            </div>
+            <div class="mb-5 h4">
+                <label for="task" class='mb-3'>Task</label>
+                <apex:inputText value="{!timesheetRecord.Name}" id="task" styleClass="form-control" />
+            </div>
+            <div class="mb-5 h4">
+                <label for="task-description" class='mb-3'>Description</label>
+                <apex:inputText value="{!timesheetRecord.Task_Description__c}" id="task-description" styleClass="form-control" />
+            </div>    
+            <div class="mb-5 h4">
+                <label for="project" class='mb-3'>Project</label>
+                <apex:inputField value="{!timesheetRecord.ProjectID__c}" id="project" styleClass="form-control" />
+            </div>
+            <div class="mb-5 h4">
+                <label for="time" class='mb-3'>Time (in hours)</label>
+                <apex:inputText value="{!timesheetRecord.Hours__c}" id="time" styleClass="form-control" />
+            </div>
+            
+            
+            <!-- Error -->
+            <div class="alert alert-danger" role="alert" style="display:{!IF(hasErrors, 'block', 'none')}">
+                <ul>
+                    <apex:repeat value="{!errorMessages}" var="message">
+                        <li>{!message}</li>
+                    </apex:repeat>
+                </ul>
+            </div>
+            
+            <!-- Info -->
+            <div class="alert alert-info" role="alert" style="display:{!IF(hasInfo, 'block', 'none')}">
+                <ul>
+                    <apex:repeat value="{!infoMessages}" var="message">
+                        <li>{!message}</li>
+                    </apex:repeat>
+                </ul>
+            </div>
+            
+            <apex:commandButton value="Submit" action="{!saveTimesheetRecord}" styleClass="btn" />
+        </div>
+    </apex:form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</apex:page>
